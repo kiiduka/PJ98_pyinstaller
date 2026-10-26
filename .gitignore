@@ -1,0 +1,12 @@
+.venv*/
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+*build/
+*dist/
+result.jpg
+result.txt
+.ipynb_checkpoints/
+*.exe
+nuitka-crash-report.xml
