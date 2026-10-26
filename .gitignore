@@ -10,3 +10,4 @@ result.txt
 .ipynb_checkpoints/
 *.exe
 nuitka-crash-report.xml
+*.spec

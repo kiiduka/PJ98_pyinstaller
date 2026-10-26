@@ -31,3 +31,32 @@ pyinstaller で実行ファイルを作るときの変更箇所
 　5 specファイルに、実行ファイルに入れる画像ファイルを記述する。
 　
 　6 以降は、pyinstaller test_2.spec を実行する。
+
+--------------------------------------------------------
+■■■変更■■■
+
+■module_1.py　変更
+# PyInstaller / Nuitka / 通常実行 に対応
+def resource_path(relative_path):
+    if hasattr(sys, "_MEIPASS"):
+        # PyInstaller（--onefile / --onedir 共通）
+        base_path = os.path.join(sys._MEIPASS, ".img")
+    elif getattr(sys, "frozen", False):
+        # Nuitka
+        base_path = os.path.join(os.path.dirname(sys.executable), ".img")
+    else:
+        # 通常の開発環境：プロジェクト直下の .img
+        base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".img"))
+    return os.path.join(base_path, relative_path)
+
+■test_5.py　変更
+# 画像 test_4.png を探す
+# image_path = r".img/test_4.png"  # スタートボタン
+# image_path = module_1.resource_path("test_4.png")  # スタートボタン
+image_path = module_1.resource_path("test_4.png")  # Nuitka / Pyinstaller 対応 <--これを有効
+detect, x, y = module_1.image_wait(image_path)
+pag.click(x + 0, y + 0, button="left")
+time.sleep(0.5)
+
+■実行コマンド
+pyinstaller --onefile --paths .. --add-data ".img;.img" test_5.py

@@ -168,16 +168,30 @@ def window_operations(window_title):
 #     return os.path.join(base_path, relative_path)
 
 
-# Nuitka 対応
+# # Nuitka 対応
+# def resource_path(relative_path):
+#     if getattr(sys, 'frozen', False):
+#         # Nuitka --onefile でフリーズされた場合
+#         # sys.executable は一時ディレクトリ内の実行ファイルへのパス
+#         # そのディレクトリ内にバンドルされた .img フォルダがあるはず
+#         base_path = os.path.dirname(sys.executable)
+#         # .img フォルダは実行ファイルと同じ階層に展開されると想定
+#         return os.path.join(base_path, ".img", relative_path)
+#     else:
+#         # 通常の開発環境の場合
+#         # スクリプトの親ディレクトリにある .img フォルダを参照
+#         return os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".img", relative_path))
+
+
+# PyInstaller / Nuitka / 通常実行 に対応
 def resource_path(relative_path):
-    if getattr(sys, 'frozen', False):
-        # Nuitka --onefile でフリーズされた場合
-        # sys.executable は一時ディレクトリ内の実行ファイルへのパス
-        # そのディレクトリ内にバンドルされた .img フォルダがあるはず
-        base_path = os.path.dirname(sys.executable)
-        # .img フォルダは実行ファイルと同じ階層に展開されると想定
-        return os.path.join(base_path, ".img", relative_path)
+    if hasattr(sys, "_MEIPASS"):
+        # PyInstaller（--onefile / --onedir 共通）
+        base_path = os.path.join(sys._MEIPASS, ".img")
+    elif getattr(sys, "frozen", False):
+        # Nuitka
+        base_path = os.path.join(os.path.dirname(sys.executable), ".img")
     else:
-        # 通常の開発環境の場合
-        # スクリプトの親ディレクトリにある .img フォルダを参照
-        return os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".img", relative_path))
+        # 通常の開発環境：プロジェクト直下の .img
+        base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".img"))
+    return os.path.join(base_path, relative_path)

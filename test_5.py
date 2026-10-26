@@ -32,26 +32,34 @@ module_1.ime_off()
 module_1.msg_show("漢字オフ")
 time.sleep(1)
 
-# 画像 test_1.png を探す
-# image_path = r".img/test_1.png"  # OCR
-# image_path = module_1.resource_path("test_1.png")  # OCR
-image_path = module_1.resource_path("test_1.png")  # Nuitka 対応
+# 画像 test_4.png を探す
+# image_path = r".img/test_4.png"  # スタートボタン
+# image_path = module_1.resource_path("test_4.png")  # スタートボタン
+image_path = module_1.resource_path("test_4.png")  # Nuitka 対応
 detect, x, y = module_1.image_wait(image_path)
 pag.click(x + 0, y + 0, button="left")
 time.sleep(0.5)
 
-# 画像 test_2.png を探す
-# image_path = r".img/test_2.png"  # pdf_txt_writer
-# image_path = module_1.resource_path("test_2.png")  # pdf_txt_writer
-image_path = module_1.resource_path("test_2.png")  # Nuitka 対応
-detect, x, y = module_1.image_wait(image_path)
-pag.click(x + 0, y + 0, button="left")
-time.sleep(0.5)
-
-#  画像 test_3.png を探す
-# image_path = r".img/test_3.png"  # gr121
-# image_path = module_1.resource_path("test_3.png")  # gr121
-image_path = module_1.resource_path("test_3.png")  # Nuitka 対応
-detect, x, y = module_1.image_wait(image_path)
-pag.click(x + 0, y + 0, button="left")
-time.sleep(0.5)
+# # 画像 test_1.png を探す
+# # image_path = r".img/test_1.png"  # OCR
+# # image_path = module_1.resource_path("test_1.png")  # OCR
+# image_path = module_1.resource_path("test_1.png")  # Nuitka 対応
+# detect, x, y = module_1.image_wait(image_path)
+# pag.click(x + 0, y + 0, button="left")
+# time.sleep(0.5)
+#
+# # 画像 test_2.png を探す
+# # image_path = r".img/test_2.png"  # pdf_txt_writer
+# # image_path = module_1.resource_path("test_2.png")  # pdf_txt_writer
+# image_path = module_1.resource_path("test_2.png")  # Nuitka 対応
+# detect, x, y = module_1.image_wait(image_path)
+# pag.click(x + 0, y + 0, button="left")
+# time.sleep(0.5)
+#
+# #  画像 test_3.png を探す
+# # image_path = r".img/test_3.png"  # gr121
+# # image_path = module_1.resource_path("test_3.png")  # gr121
+# image_path = module_1.resource_path("test_3.png")  # Nuitka 対応
+# detect, x, y = module_1.image_wait(image_path)
+# pag.click(x + 0, y + 0, button="left")
+# time.sleep(0.5)
